@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <ul class="root">
+        <li><span>test</span></li>
+        <li><span>test</span></li>
+        <li><span>test</span></li>
+        <li><span>test</span></li>
+        <li><span>test</span></li>
+        <li><span>test</span></li>
+      </ul>
+    </div>
+
+    <script>
+      // 队列 bfs
+      function bfs(root) {
+        if (!root) {
+          return [];
+        }
+        const queue = [root];
+        const ret = [];
+
+        while (queue.length) {
+          const node = queue.shift();
+          ret.push(node);
+          if (!node.children.length) {
+            continue;
+          }
+          Array.from(node.children).map((item) => queue.push(item));
+        }
+        return ret;
+      }
+
+      const nodeList = [];
+      // 递归
+      function dfs(root, nodeList) {
+        if (!root) {
+          return [];
+        }
+        nodeList.push(root);
+        if (root.children.length) {
+          for (let index = 0; index < root.children.length; index++) {
+            const element = root.children[index];
+            dfs(element, nodeList);
+          }
+        }
+        return nodeList;
+      }
+
+      // 栈迭代
+      function stack_dfs(node) {
+        const nodeList = [];
+        const stack = [];
+        if (node) {
+          stack.push(node);
+          while (stack.length) {
+            const currentNode = stack.pop();
+            nodeList.push(currentNode);
+            if (currentNode.children.length) {
+              for (i = currentNode.children.length - 1; i >= 0; i--) {
+                stack.push(currentNode.children[i]);
+              }
+            }
+          }
+        }
+        return nodeList;
+      }
+      const res = bfs(document.querySelector('.root'));
+      console.log('res', res);
+      console.log('dfs', dfs(document.querySelector('.root'), nodeList));
+    </script>
+  </body>
+</html>
