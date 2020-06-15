@@ -32,7 +32,10 @@
  * @param {number} sum
  * @return {boolean}
  */
-var hasPathSum = function (root, sum) {
+var hasPathSum = function (
+  root: { left: null; right: null; val: number },
+  sum: number
+) {
   if (!root) return false;
 
   if (root.left === null && root.right === null) return root.val === sum;
